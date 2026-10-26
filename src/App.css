@@ -35,3 +35,8 @@
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
 }
+
+.login-form { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.login-form input { flex: 1; padding: 8px 10px; font: inherit; }
+.who { display: flex; justify-content: space-between; align-items: center; }
+.error { width: 100%; margin: 0; color: #d03b2f; }
