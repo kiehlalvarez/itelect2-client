@@ -4,13 +4,21 @@ import { useState } from "react";
 // so this form hands the typed title up through onAdd.
 function TaskForm({ onAdd }) {
   const [title, setTitle] = useState("");
+  const [error, setError] = useState("");
 
-  function handleSubmit(e) {
+  // GT14: onAdd now sends a request, so wait for it
+  // and show the API's message if it fails.
+  async function handleSubmit(e) {
     e.preventDefault();
     const trimmed = title.trim();
     if (trimmed === "") return;
-    onAdd(trimmed);
-    setTitle("");
+    try {
+      await onAdd(trimmed);
+      setTitle("");
+      setError("");
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   return (
@@ -21,6 +29,7 @@ function TaskForm({ onAdd }) {
         placeholder="Title of a new task"
       />
       <button type="submit">Add task</button>
+      {error && <p className="error">{error}</p>}
     </form>
   );
 }
